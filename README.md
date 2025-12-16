@@ -179,7 +179,7 @@ pip install torch transformers scikit-learn pandas numpy matplotlib seaborn nltk
 If you use this code or dataset, please cite:
 
 > Kanwar Muhammad Afaq, Chaithra Lokasara Mahadevaswamy, Ammar Amjad, Hsien-Tsung Chang.  
-> *Comparative Analysis of Multilingual Transformer Models for Urdu Sentiment Analysis*, 2024.
+> *Comparative Analysis of Multilingual Transformer Models for Urdu Sentiment Analysis*, 2025.
 
 ### Dataset Reference
 - **Urdu Corpus for Sentiment Analysis (UCSA)** – IEEE DataPort  
