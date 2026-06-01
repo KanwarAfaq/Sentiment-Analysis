@@ -106,10 +106,8 @@ The results demonstrate that XLM-RoBERTa's advanced SentencePiece tokenization a
 
 ## 📚 Citation
 
-If you use this code or dataset, please cite:
-
-> Kanwar Muhammad Afaq, Chaithra Lokasara Mahadevaswamy, Ammar Amjad, Hsien-Tsung Chang.
-> *A Controlled Four-Way Transformer Benchmark for Binary Urdu Sentiment Classification on UCSA-20*, 2026.
+If you utilize this code or methodology in your research, please cite our paper:
+(Citation details will be updated upon publication).
 
 ### Dataset Reference
 
