@@ -64,11 +64,11 @@ except FileNotFoundError:
 df_train = df_train.rename(columns={'Tweets': 'review', 'label': 'sentiment'})
 df_test = df_test.rename(columns={'Tweets': 'review', 'label': 'sentiment'})
 
-# Clean missing values and duplicates independently for Phase 1
+
 df_train = df_train.dropna(subset=['review', 'sentiment']).drop_duplicates(subset=['review'])
 df_test = df_test.dropna(subset=['review', 'sentiment']).drop_duplicates(subset=['review'])
 
-# Merge them into one master dataset for Phase 2 (5-Fold Cross-Validation)
+
 df_raw = pd.concat([df_train, df_test], ignore_index=True).drop_duplicates(subset=['review'])
 
 print(f"Total unique reviews ready for training: {len(df_raw)}")
@@ -187,9 +187,8 @@ def run_experiment(config_name, remove_stopwords=False):
 
     save_dir = f"{BASE_PATH}best_model_{config_name.replace(' ', '_')}"
 
-    # ==============================================================================
-    # PHASE 1: STATIC SPLIT (Generates Tables 3, 4, 5)
-    # ==============================================================================
+    # PHASE 1
+    
     print("\n--- PHASE 1: STATIC SPLIT EVALUATION (Headline Metrics) ---")
     
     t_texts, t_labels = train_df['review'].to_numpy(), train_df['sentiment'].to_numpy()
@@ -242,7 +241,7 @@ def run_experiment(config_name, remove_stopwords=False):
         v_accs.append(accuracy_score(val_tgts, val_preds))
         print(f"  Epoch {epoch+1}/{EPOCHS} | Train Loss: {t_losses[-1]:.4f} | Val Accuracy: {v_accs[-1]:.4f}")
 
-    # Final Test pass (Phase 1)
+    # Final Test pass 
     model.eval()
     test_preds, test_tgts = [], []
     with torch.no_grad():
@@ -257,7 +256,7 @@ def run_experiment(config_name, remove_stopwords=False):
     
     print(f"\n  -> PHASE 1 STATIC TEST RESULTS: Accuracy: {p1_acc:.4f} | Macro F1: {p1_f1:.4f}")
     
-    # Save graphs and model for Phase 1 (These exactly match Tables 3, 4, and 5)
+    # Save graphs and model 
     if not os.path.exists(save_dir): os.makedirs(save_dir)
     model.save_pretrained(save_dir)
     tokenizer.save_pretrained(save_dir)
@@ -268,9 +267,7 @@ def run_experiment(config_name, remove_stopwords=False):
     gc.collect()
     torch.cuda.empty_cache()
 
-    # ==============================================================================
-    # PHASE 2: 5-FOLD CROSS VALIDATION (Generates Table 6)
-    # ==============================================================================
+    # PHASE 2: 
     print("\n--- PHASE 2: 5-FOLD CROSS VALIDATION (Variance Testing) ---")
     
     cv_texts, cv_labels = cv_df['review'].to_numpy(), cv_df['sentiment'].to_numpy()
@@ -304,7 +301,7 @@ def run_experiment(config_name, remove_stopwords=False):
                 scheduler.step()
                 optimizer.zero_grad()
 
-        # Final test evaluation for this CV fold
+        # Final test evaluation 
         model.eval()
         f_test_preds, f_test_tgts = [], []
         with torch.no_grad():
