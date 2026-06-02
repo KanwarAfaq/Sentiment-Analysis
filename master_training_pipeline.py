@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from copy import deepcopy
 from sklearn.model_selection import StratifiedKFold, train_test_split
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix, classification_report
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from torch.optim import AdamW  # Correct PyTorch AdamW import
 from transformers import get_linear_schedule_with_warmup
@@ -249,11 +249,13 @@ def run_experiment(config_name, remove_stopwords=False):
             test_preds.extend(torch.max(outputs.logits, dim=1)[1].cpu().numpy())
             test_tgts.extend(batch['labels'].to(device).cpu().numpy())
             
-    p1_acc = accuracy_score(test_tgts, test_preds)
+ p1_acc = accuracy_score(test_tgts, test_preds)
     _, _, p1_f1, _ = precision_recall_fscore_support(test_tgts, test_preds, average='macro')
     p1_cm = confusion_matrix(test_tgts, test_preds)
     
     print(f"\n  -> PHASE 1 STATIC TEST RESULTS: Accuracy: {p1_acc:.4f} | Macro F1: {p1_f1:.4f}")
+    print("\n--- DETAILED CLASSIFICATION REPORT ---")
+    print(classification_report(test_tgts, test_preds, target_names=['Negative', 'Positive'], digits=4))
     
     # Save graphs and model 
     if not os.path.exists(save_dir): os.makedirs(save_dir)
