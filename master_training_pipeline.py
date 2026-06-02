@@ -1,10 +1,9 @@
 # ==============================================================================
-# CELL 1: SETUP & INSTALLATION (Colab Specific)
+# CELL 1: SETUP & INSTALLATION
 # ==============================================================================
-# Install missing libraries required for XLM-RoBERTa
-!pip install -q transformers sentencepiece 
+# Pinning exact versions to match manuscript claims for reproducibility
+!pip install -q transformers==4.41.0 sentencepiece torch==2.2.0
 
-# Mount Google Drive to access datasets and save results
 from google.colab import drive
 drive.mount('/content/drive')
 
@@ -50,7 +49,7 @@ torch.backends.cudnn.deterministic = True
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Training on: {device}")
 if device.type == 'cpu':
-    print("⚠️ WARNING: You are running on CPU. Please go to Runtime > Change runtime type > T4 GPU!")
+    print("⚠️ WARNING: You are running on CPU. For exact reproduction, an NVIDIA Tesla V100 or T4 GPU is recommended.")
 
 # --- 4. DATA LOADING & PREPROCESSING (FULL DATASET) ---
 print("\nLoading and merging full datasets...")
