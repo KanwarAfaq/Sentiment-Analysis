@@ -103,6 +103,8 @@ python main_pipeline.py
 The results demonstrate that XLM-RoBERTa's advanced SentencePiece tokenization and larger multilingual pretraining corpus provide superior generalization for low-resource fusional languages like Urdu.
 
 ---
+ **Note on Reproducibility:** 
+ The `master_training_pipeline.py` script is currently configured to run the headline XLM-RoBERTa-base model at a 1e-5 learning rate. To reproduce the full four-way benchmark described in the paper, please manually update the `MODEL_NAME` and `LEARNING_RATE` variables in the global hyperparameters section of the script.
 
 ## 📚 Citation
 
