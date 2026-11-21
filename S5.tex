@@ -1,0 +1,224 @@
+
+\documentclass[12pt,a4paper]{article}
+
+% ==========================================
+% Required packages
+% ==========================================
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+% Language configuration
+\setmainlanguage{english}
+\setotherlanguage{urdu}
+
+% Urdu font
+\newfontfamily\urdufont[Script=Arabic]{Amiri}
+
+% Table packages
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{pdflscape}
+
+% Page layout
+\usepackage[a4paper,margin=12mm]{geometry}
+
+\begin{document}
+
+% ==========================================
+% Supplementary Table S5
+% Final 14-column version
+% Four selected cases
+% ==========================================
+
+% Reference labels:
+% 0 = negative
+% 1 = positive
+%
+% Review IDs are zero-based row indexes
+% in the supplied test_dataset.csv.
+%
+% Case 3 token count (176) and
+% truncated=Yes are author-confirmed.
+%
+% The negation flags are automated markers.
+% All-seed misclassification: 4/4.
+
+\begingroup
+
+\renewcommand{\thetable}{S5}
+
+\begin{landscape}
+
+\begin{table}[p]
+\centering
+
+\caption{Selected persistent model--label disagreements on the held-out UCSA-20 test set. FP denotes a negative reference review predicted positive; FN denotes a positive reference review predicted negative. Review excerpts are abbreviated; ellipses indicate omitted text. Each listed case was misclassified in all four training-seed runs (42, 169, 356, and 789) for the corresponding model.}
+
+\label{tab:supp_error_cases}
+
+\setlength{\tabcolsep}{1.15pt}
+\renewcommand{\arraystretch}{1.30}
+
+\scriptsize
+
+\begin{tabularx}{\linewidth}{@{}
+>{\raggedright\arraybackslash}p{7mm}
+>{\raggedright\arraybackslash}p{20mm}
+>{\raggedright\arraybackslash}p{9mm}
+>{\raggedright\arraybackslash}p{14mm}
+>{\raggedright\arraybackslash}X
+>{\centering\arraybackslash}p{17mm}
+>{\centering\arraybackslash}p{17mm}
+>{\raggedright\arraybackslash}p{26mm}
+>{\centering\arraybackslash}p{10mm}
+>{\centering\arraybackslash}p{17mm}
+>{\centering\arraybackslash}p{15mm}
+>{\centering\arraybackslash}p{15mm}
+>{\centering\arraybackslash}p{18mm}
+>{\raggedright\arraybackslash}X
+@{}}
+
+\toprule
+
+\textbf{Case} &
+\textbf{Model} &
+\textbf{Error type} &
+\textbf{Review ID} &
+\textbf{Original Urdu review} &
+\textbf{Reference label} &
+\textbf{Predicted label} &
+\textbf{Seed-level predictions} &
+\textbf{Token count} &
+\textbf{Truncated} &
+\textbf{Negation marker present} &
+\textbf{Mixed sentiment} &
+\textbf{Possible annotation ambiguity} &
+\textbf{Descriptive note} \\
+
+\midrule
+
+% ==========================================
+% Case 1
+% ==========================================
+
+1 &
+mBERT-cased &
+FP &
+test-493 &
+
+\texturdu{یہ ضرور سنیما کی تاریخ میں سب سے بہترین کنگ فو فلموں میں سے ایک ہے.}
+\ldots{}
+\texturdu{آخری لڑائی ایک شاہکار ہے!} &
+
+0 (Neg.) &
+1 (Pos.) &
+
+42:1; 169:1; 356:1; 789:1 &
+
+102 &
+No &
+Yes\textsuperscript{a} &
+No &
+Possible &
+
+Strongly positive wording conflicts with the negative reference label; annotation review is warranted. \\
+
+\midrule
+
+% ==========================================
+% Case 2
+% ==========================================
+
+2 &
+mBERT-cased &
+FP &
+test-134 &
+
+\texturdu{سے Django کے Ballad ایک فلم کا ایک meandering گندگی ہے!}
+\ldots{}
+\texturdu{اس میں سے ایک رجسڈر ہوں !!} &
+
+0 (Neg.) &
+1 (Pos.) &
+
+42:1; 169:1; 356:1; 789:1 &
+
+112 &
+No &
+Yes\textsuperscript{a} &
+No &
+Not indicated &
+
+The review criticizes the film, but the classifier predicts positive; its Urdu--English wording may complicate interpretation. \\
+
+\midrule
+
+% ==========================================
+% Case 3
+% ==========================================
+
+3 &
+XLM-RoBERTa-base &
+FN &
+test-579 &
+
+\texturdu{بہت سے نقاط کے numbingly سست}
+\ldots{}
+\texturdu{سب سے بڑی endings میں سے ایک ہے.} &
+
+1 (Pos.) &
+0 (Neg.) &
+
+42:0; 169:0; 356:0; 789:0 &
+
+176 &
+Yes &
+Yes\textsuperscript{a} &
+Yes &
+Not indicated &
+
+Strong criticism of pacing precedes praise for the ending. The review was truncated; its contribution to this error is unknown. \\
+
+\midrule
+
+% ==========================================
+% Case 4
+% ==========================================
+
+4 &
+mBERT-uncased &
+FN &
+test-20 &
+
+\texturdu{یہ بس میں نے ایک طویل وقت میں دیکھا ہے پرلطف ترین فلم ہے.}
+\ldots{}
+\texturdu{خراب اداکاری، برا سکرپٹ}
+\ldots{}
+\texturdu{آپ غلط نہیں جا سکتی.} &
+
+1 (Pos.) &
+0 (Neg.) &
+
+42:0; 169:0; 356:0; 789:0 &
+
+88 &
+No &
+Yes\textsuperscript{a} &
+Yes &
+Not indicated &
+
+Overall enjoyment coexists with criticism of acting and script quality. \\
+\bottomrule
+\end{tabularx}
+
+\end{minipage}
+
+\end{table}
+
+\end{landscape}
+
+\endgroup
+
+\end{document}
