@@ -1,0 +1,36 @@
+
+{
+  "title": "A Controlled Four-Way Transformer Benchmark for Binary Urdu Sentiment Classification on UCSA-20",
+  "description": "Research software accompanying a controlled benchmark of four multilingual transformer encoders for binary Urdu sentiment classification on UCSA-20. The implementation includes data preprocessing, grouped stratified partitioning, four-seed model evaluation, stop-word ablation, paired statistical comparisons, and persistent error analysis.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Afaq, Kanwar Muhammad",
+      "affiliation": "Chang Gung University, Taiwan"
+    },
+    {
+      "name": "Mahadevaswamy, Chaithra Lokasara",
+      "affiliation": "Chang Gung University, Taiwan"
+    },
+    {
+      "name": "Amjad, Ammar",
+      "affiliation": "National Yang Ming Chiao Tung University, Taiwan"
+    },
+    {
+      "name": "Chang, Hsien-Tsung",
+      "affiliation": "Chang Gung University and Chang Gung Memorial Hospital, Taiwan"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "Urdu",
+    "Sentiment Analysis",
+    "UCSA-20",
+    "Natural Language Processing",
+    "Multilingual Transformers",
+    "BERT",
+    "XLM-RoBERTa",
+    "Reproducibility"
+  ]
+}
